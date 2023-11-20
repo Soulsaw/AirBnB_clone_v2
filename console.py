@@ -2,6 +2,7 @@
 """ Console Module """
 import cmd
 import sys
+import re
 from models.base_model import BaseModel
 from models.__init__ import storage
 from models.user import User
@@ -115,16 +116,31 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
+        """ create <Class name> <param 1> <param 2> <param 3>... """
+        arg = args.split(' ')
         if not args:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+        elif arg[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
-        storage.save()
+        new_instance = HBNBCommand.classes[arg[0]]()
+        new_dict = new_instance.to_dict()
+        for param in arg:
+            cmd = param.split('=')
+            if (len(cmd) == 2):
+                value = re.search(r"^\"(\w+)\"$", cmd[1])
+                if value:
+                    cmd[1] = value.group(1).replace('_', ' ')
+                try:
+                    cmd[1] = eval(cmd[1])
+                except Exception as e:
+                    pass
+                new_dict[cmd[0]] = cmd[1]
+        new_instance = HBNBCommand.classes[arg[0]](**new_dict)
+        storage.new(new_instance)
         print(new_instance.id)
-        storage.save()
+        new_instance.save()
 
     def help_create(self):
         """ Help information for the create method """
@@ -319,6 +335,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
