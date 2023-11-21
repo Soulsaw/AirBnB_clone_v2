@@ -11,6 +11,8 @@ class FileStorage:
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
         if cls is not None:
+            if type(cls) == str:
+                cls = eval(cls)
             new_dict = {}
             for k, v in self.__objects.items():
                 if type(v) == cls:
@@ -19,6 +21,8 @@ class FileStorage:
         return self.__objects
 
     def delete(self, obj=None):
+        """delete the obj instance from the __objects
+        """
         try:
             del self.__objects['{}.{}'.format(obj.__class__.__name__, obj.id)]
         except (AttributeError, KeyError):
