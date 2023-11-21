@@ -124,8 +124,7 @@ class HBNBCommand(cmd.Cmd):
         elif arg[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[arg[0]]()
-        new_dict = new_instance.to_dict()
+        new_dict = {}
         for param in arg:
             cmd = param.split('=')
             if (len(cmd) == 2):
@@ -140,7 +139,7 @@ class HBNBCommand(cmd.Cmd):
         new_instance = HBNBCommand.classes[arg[0]](**new_dict)
         storage.new(new_instance)
         print(new_instance.id)
-        new_instance.save()
+        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
