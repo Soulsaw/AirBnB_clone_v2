@@ -49,5 +49,8 @@ class BaseModel:
         for key, value in mylist.items():
             if key in ['created_at', 'updated_at']:
                 mylist[key] = value.isoformat()
-        mylist.pop('_sa_instance_state', None)
+        try:
+            del mylist['_sa_instance_state']
+        except (AttributeError, KeyError):
+            pass
         return mylist
