@@ -7,8 +7,16 @@ from sqlalchemy import String
 from sqlalchemy import Integer
 from sqlalchemy import Float
 from sqlalchemy import ForeignKey
+from sqlalchemy import Table
 from sqlalchemy.orm import relationship
 from os import getenv
+association_table = Table('place_amenity', Base.metadata,
+                          Column('place_id', String(60),
+                                 ForeignKey('places.id'),
+                                 primary_key=True),
+                          Column('amenity_id', String(60),
+                                 ForeignKey('amenities.id'),
+                                 primary_key=True))
 
 
 class Place(BaseModel, Base):
@@ -24,8 +32,10 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, nullable=False, default=0)
     latitude = Column(Float)
     longitude = Column(Float)
-    amenity_ids = []
     reviews = relationship('Review', backref='place', cascade='delete')
+    amenities = relationship('Amenity', secondary=association_table,
+                             viewonly=False, back_populates='place_amenities')
+    amenity_ids = []
     if getenv('HBNB_TYPE_STORAGE') != 'db':
         @property
         def reviews(self):
@@ -37,3 +47,21 @@ class Place(BaseModel, Base):
                 if review.place_id == self.id:
                     my_reviews.append(review)
             return my_reviews
+
+        @property
+        def amenities(self):
+            """
+            """
+            from models import storage
+            amenity_list = []
+            for amenity in list(storage.all(Amenity).values()):
+                if amenity.id in self.amenity_ids:
+                    amenity_list.append(amenity)
+            return amenity_list
+
+            @amenities.setter
+            def amenities(self, value):
+                """
+                """
+                if type(value) == Amenity:
+                    self.amenity_ids.append(value)
