@@ -22,15 +22,12 @@ class DBStorage:
     def __init__(self):
         """
         """
-        try:
-            self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".
-                                          format(getenv('HBNB_MYSQL_USER'),
-                                                 getenv('HBNB_MYSQL_PWD'),
-                                                 getenv('HBNB_MYSQL_HOST'),
-                                                 getenv('HBNB_MYSQL_DB')),
-                                          pool_pre_ping=True)
-        except (Exception):
-            pass
+        self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".
+                                      format(getenv('HBNB_MYSQL_USER'),
+                                             getenv('HBNB_MYSQL_PWD'),
+                                             getenv('HBNB_MYSQL_HOST'),
+                                             getenv('HBNB_MYSQL_DB')),
+                                      pool_pre_ping=True)
         if getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
 
@@ -53,8 +50,8 @@ class DBStorage:
         else:
             if type(cls) == str:
                 cls = eval(cls)
-            query = self.__session.query(cls)
-            return {'{}.{}'.format(type(o).__name__, o.id): o for o in query}
+            objs = self.__session.query(cls)
+        return {'{}.{}'.format(type(o).__name__, o.id): o for o in objs}
 
     def new(self, obj):
         """
