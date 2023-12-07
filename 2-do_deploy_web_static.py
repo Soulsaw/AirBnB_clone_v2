@@ -39,6 +39,7 @@ def do_deploy(archive_path):
             symlink = f"/data/web_static/current"
             run(f"rm -rf {symlink}")
             run(f"ln -s {unarchive_path} {symlink}")
+            print("New version deployed!")
             return True
         except Exception as e:
             return False
