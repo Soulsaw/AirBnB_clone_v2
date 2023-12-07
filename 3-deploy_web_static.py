@@ -10,9 +10,7 @@ do_deploy = __import__('2-do_deploy_web_static').do_deploy
 """
 # Set the hosts to use the ssh
 env.hosts = ['52.91.148.142', '54.87.240.58']
-# Set the user to use the ssh
-env.user = 'ubuntu'
-env.key_filename = 'my_ssh_private_key.pem'
+
 
 
 def deploy():
