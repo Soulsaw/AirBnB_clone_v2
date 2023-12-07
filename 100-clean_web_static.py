@@ -17,4 +17,5 @@ def do_clean(number=0):
     remote_results = run(f"ls -t /data/web_static/releases/")
     remote_results = remote_results.split()
     for item in remote_results[int(number):]:
-        run(f"rm -rf /data/web_static/releases/{item}")
+        if item != "test":
+            run(f"rm -rf /data/web_static/releases/{item}")
