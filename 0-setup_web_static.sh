@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 # Configurating the web server for deployment
 
+# Installing nginx
+sudo apt-get update
+sudo apt-get install -y nginx
+
 # Initiate the variable with the folder
 data="/data/"
 data_stat="/data/web_static/"
