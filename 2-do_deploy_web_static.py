@@ -2,21 +2,23 @@
 """
 Write the fabric script ot upload archive to the remote server
 """
-from fabric.api import *
-from sys import argv
-import os
+from fabric.api import run
+from fabric.api import put
+from fabric.api import env
+from os.path import isfile
 """Import the local command from the fabric module
 """
 # Set the hosts to use the ssh
 env.hosts = ['52.91.148.142', '54.87.240.58']
 # Set the user to use the ssh
 env.user = 'ubuntu'
+env.key_filename = 'my_ssh_private_key.pem'
 
 
 def do_deploy(archive_path):
     """This function permit to upload a archive file to the server
     """
-    if os.path.isfile(archive_path):
+    if isfile(archive_path):
         try:
             # Download an archive to the remote server
             name = archive_path.split('/')[-1].split('.')[0]
