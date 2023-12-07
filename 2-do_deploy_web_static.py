@@ -11,8 +11,6 @@ from os.path import isfile
 # Set the hosts to use the ssh
 env.hosts = ['52.91.148.142', '54.87.240.58']
 # Set the user to use the ssh
-env.user = 'ubuntu'
-env.key_filename = 'my_ssh_private_key.pem'
 
 
 def do_deploy(archive_path):
@@ -32,9 +30,9 @@ def do_deploy(archive_path):
             run(f"rm /tmp/{name}.tgz")
             # Move the content of the folder web_static inside the
             # unarchive path to an unarchive path
-            run(f"mv {unarchive_path}/web_static/* {unarchive_path}")
+            """ run(f"mv {unarchive_path}/web_static/* {unarchive_path}")
             # Delete the web_static folder inside the unarchive folder
-            run(f"rm -rf {unarchive_path}/web_static")
+            run(f"rm -rf {unarchive_path}/web_static") """
             # Revome the old symbolic link and create a new
             symlink = f"/data/web_static/current"
             run(f"rm -rf {symlink}")
