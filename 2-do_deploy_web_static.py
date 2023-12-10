@@ -5,6 +5,7 @@ Write the fabric script ot upload archive to the remote server
 from fabric.api import run
 from fabric.api import put
 from fabric.api import env
+from fabric.api import task
 from os.path import isfile
 """Import the local command from the fabric module
 """
@@ -13,6 +14,7 @@ env.hosts = ['52.91.148.142', '54.87.240.58']
 # Set the user to use the ssh
 
 
+@task
 def do_deploy(archive_path):
     """This function permit to upload a archive file to the server
     """

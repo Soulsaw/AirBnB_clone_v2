@@ -2,12 +2,16 @@
 """
 Write the fabric script that that deletes out-of-date archives
 """
-from fabric.api import env, local, run
+from fabric.api import runs_once
+from fabric.api import local
+from fabric.api import run
+from fabric.api import env
 # Set the hosts to use the ssh
 env.hosts = ['52.91.148.142', '54.87.240.58']
 
 
-def do_clean(number=0):
+@runs_once
+def do_local_clean(number=0):
     """This function delete the out date versions of the archive
     """
     result = local(f"ls -t versions/", capture=True)
@@ -18,6 +22,14 @@ def do_clean(number=0):
     for item in result[int(number):]:
         if "web_static" in item:
             local(f"rm -rf versions/{item}")
+
+
+def do_clean(number=0):
+    """This function delete the out date versions of the archive
+    """
+    do_local_clean(number)
+    if number == '0':
+        number = '1'
     remote_results = run(f"ls -t /data/web_static/releases/")
     remote_results = remote_results.split()
     remote_results = [item for item in remote_results if "web_static" in item]
