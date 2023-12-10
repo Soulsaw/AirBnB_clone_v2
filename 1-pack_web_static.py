@@ -2,14 +2,12 @@
 """
 Write the fabric script ot create a .tvz archive file
 """
-from fabric.api import local, task, runs_once
+from fabric.api import local
 from datetime import datetime
 """Import the local command from the fabric module
 """
 
 
-@task
-@runs_once
 def do_pack():
     """This function create a archive using the shell command line\
         tar -zcvf name.tgz folder
