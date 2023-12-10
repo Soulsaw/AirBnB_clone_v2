@@ -12,10 +12,15 @@ def do_clean(number=0):
     """
     result = local(f"ls -t versions/", capture=True)
     result = result.split()
+    result = [item for item in result if "web_static" in item]
+    if number == '0':
+        number = '1'
     for item in result[int(number):]:
-        local(f"rm -f versions/{item}")
+        if "web_static" in item:
+            local(f"rm -f versions/{item}")
     remote_results = run(f"ls -t /data/web_static/releases/")
     remote_results = remote_results.split()
+    remote_results = [item for item in remote_results if "web_static" in item]
     for item in remote_results[int(number):]:
-        if item != "test":
+        if "web_static" in item:
             run(f"rm -rf /data/web_static/releases/{item}")
