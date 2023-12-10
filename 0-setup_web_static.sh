@@ -38,7 +38,7 @@ sudo ln -sf "$data_stat_rel_test" "$sl_name"
 sudo chown -hR ubuntu:ubuntu "$data"
 
 # Update the configuration off nginx server
-config_file="/etc/nginx/sites-enabled/default"
+config_file="/etc/nginx/sites-available/default"
 new_string="server_name _;\n\n\tlocation \/hbnb_static\/ {\n\t\talias \/data\/web_static\/current\/;\n\t\tautoindex off;\n\t}\n"
 sudo sed -i "s/server_name _;/$new_string/" "$config_file"
 
