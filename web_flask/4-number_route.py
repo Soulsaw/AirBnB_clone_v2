@@ -30,6 +30,7 @@ def python(text="is cool"):
     """
     return "Python " + text.replace('_', ' ')
 
+
 @app.route('/number/<int:n>', strict_slashes=False)
 def number(n):
     """ This function get a vaeiablw on the URL
