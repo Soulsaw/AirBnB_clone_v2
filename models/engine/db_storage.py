@@ -4,12 +4,12 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import scoped_session
 from sqlalchemy import create_engine
 from models.base_model import Base
-from models.user import User
-from models.place import Place
-from models.state import State
-from models.city import City
 from models.amenity import Amenity
+from models.city import City
+from models.place import Place
 from models.review import Review
+from models.state import State
+from models.user import User
 from os import getenv
 
 
@@ -34,12 +34,6 @@ class DBStorage:
     def all(self, cls=None):
         """
         """
-        from models.user import User
-        from models.place import Place
-        from models.state import State
-        from models.city import City
-        from models.amenity import Amenity
-        from models.review import Review
         if cls is None:
             objs = self.__session.query(State).all()
             objs.extend(self.__session.query(City).all())

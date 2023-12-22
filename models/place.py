@@ -2,6 +2,8 @@
 """ Place Module for HBNB project """
 from models.base_model import BaseModel
 from models.base_model import Base
+from models.review import Review
+from models.amenity import Amenity
 from sqlalchemy import Column
 from sqlalchemy import String
 from sqlalchemy import Integer
