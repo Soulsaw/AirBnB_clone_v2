@@ -4,9 +4,16 @@ from . import app
 """
 @app.route('/', strict_slashes=False)
 def hello():
-    """ This function display hello HBNH! at the route URL
+    """ This function display hello HBNH! at the route / URL
     """
     return "Hello HBNB!"
+
+
+@app.route('/hbnb', strict_slashes=False)
+def hbnb():
+    """ This function display HBNH at the route /hbnb URL
+    """
+    return "HBNB"
 
 
 if __name__ == "__main__":
