@@ -7,12 +7,23 @@ from flask import render_template
 """
 
 
-@app.route('/states_list', strict_slashes=False)
-def states_list():
+@app.route('/states', strict_slashes=False)
+def states():
     """ This function display hello HBNH! at the route URL
     """
     states = storage.all("State")
-    return render_template('7-states_list.html', states=states)
+    return render_template('9-states.html', states=states)
+
+
+@app.route('/states/<string:id>', strict_slashes=False)
+def states_by_id(id):
+    """ This function display hello HBNH! at the route URL
+    """
+    states = storage.all("State").values()
+    for state in states:
+        if state.id == id:
+            return render_template('9-states.html', states=state)
+    return render_template('9-states.html')
 
 
 @app.teardown_appcontext
