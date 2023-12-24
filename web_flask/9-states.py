@@ -1,15 +1,15 @@
 #!/usr/bin/python3
-from . import app
-from models import storage
-from models.state import State
-from flask import render_template
 """ Importing the app instance for the running and define the route
 """
+from models import storage
+from flask import render_template
+from flask import Flask
+app = Flask(__name__)
 
 
 @app.route('/states', strict_slashes=False)
 def states():
-    """ This function display hello HBNH! at the route URL
+    """ This URL display all the states in the database
     """
     states = storage.all("State")
     return render_template('9-states.html', states=states)
@@ -17,7 +17,7 @@ def states():
 
 @app.route('/states/<string:id>', strict_slashes=False)
 def states_by_id(id):
-    """ This function display hello HBNH! at the route URL
+    """ This URL display all the city for a given state id
     """
     states = storage.all("State").values()
     for state in states:

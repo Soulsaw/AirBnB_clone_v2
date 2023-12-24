@@ -1,7 +1,10 @@
 #!/usr/bin/python3
-from . import app
 """ Importing the app instance for the running and define the route
 """
+from flask import Flask
+app = Flask(__name__)
+
+
 @app.route('/', strict_slashes=False)
 def hello():
     """ This function display hello HBNH! at the route / URL

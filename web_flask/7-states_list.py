@@ -1,10 +1,10 @@
 #!/usr/bin/python3
-from . import app
-from models import storage
-from models.state import State
-from flask import render_template
 """ Importing the app instance for the running and define the route
 """
+from models import storage
+from flask import render_template
+from flask import Flask
+app = Flask(__name__)
 
 
 @app.route('/states_list', strict_slashes=False)
