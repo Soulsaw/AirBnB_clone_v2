@@ -15,7 +15,7 @@ def states():
     return render_template('9-states.html', states=states)
 
 
-@app.route('/states/<string:id>', strict_slashes=False)
+@app.route('/states/<id>', strict_slashes=False)
 def states_by_id(id):
     """ This URL display all the city for a given state id
     """
