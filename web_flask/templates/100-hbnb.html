@@ -9,6 +9,7 @@
 		<LINK rel="stylesheet" href="{{ url_for('static', filename='styles/3-header.css') }}"/>
 		<LINK rel="stylesheet" href="{{ url_for('static', filename='styles/3-footer.css') }}"/>
 		<LINK rel="stylesheet" href="{{ url_for('static', filename='styles/6-filters.css') }}"/>
+		<LINK rel="stylesheet" href="{{ url_for('static', filename='styles/8-places.css') }}"/>
 	</HEAD>
     <BODY>
 		<HEADER>
@@ -22,7 +23,7 @@
 					<H4>&nbsp;</H4>
 					<UL class="popover">
 						{% for state in states|sort(attribute="name") %}
-						<LI><h2>{{ state.name }}</h2>
+						<LI><H2>{{ state.name }}</H2>
 							<UL>
 								{% for city in state.cities|sort(attribute="name") %}
 								<LI><H4>{{ city.name }}</H4></LI>
@@ -42,6 +43,33 @@
 					</UL>
 				</DIV>
 
+			</SECTION>
+			<SECTION class="places">
+				<H1>Places</H1>
+				{% for place in places|sort(attribute="name") %}
+				<ARTICLE>
+					<DIV class="headline">
+						<H2>{{ place.name|safe }}</H2>
+						<DIV class="price_by_night">&#36;{{ place.price_by_night }}</DIV>
+					</DIV>
+					<DIV class="information">
+						<DIV class="max_guest">
+							<DIV class="guest_icon"></DIV>
+							<P>{{ place.max_guest }} Guests</P>
+						</DIV>
+						<DIV class="number_rooms">
+							<DIV class="bed_icon"></DIV>
+							<P>{{ place.number_rooms }} Bedrooms</P>
+						</DIV>
+						 <DIV class="number_bathrooms">
+							<DIV class="bath_icon"></DIV>
+							<P>{{ place.number_bathrooms }} Bathrooms</P>
+						</DIV>
+					</DIV>
+					<DIV class="user"><B>Owner</B>: {{ place.user.first_name }} {{ place.user.last_name }}</DIV>
+					<DIV class="description">{{ place.description|safe }}</DIV>
+				</ARTICLE>
+				{% endfor %}
 			</SECTION>
 		</DIV>
 		<FOOTER>
