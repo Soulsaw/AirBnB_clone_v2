@@ -17,7 +17,7 @@ def states():
 
 @app.route('/states/<string:id>', strict_slashes=False)
 def states_by_id(id):
-    """ This URL display all the city for a given state id
+    """ This URL display all the city for a given state_id
     """
     states = storage.all("State").values()
     for state in states:
